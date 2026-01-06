@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Source Code Viewer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+</head>
+<body class="bg-gray-900 text-white min-h-screen p-6">
+
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6 text-center text-blue-400">Website Source Viewer</h1>
+
+        <form method="POST" class="flex gap-2 mb-8">
+            <input type="text" name="url" placeholder="Enter website URL (e.g. google.com)" 
+                   value="{{ url }}" required
+                   class="flex-1 p-3 rounded bg-gray-800 border border-gray-700 focus:border-blue-500 outline-none text-white">
+            <button type="submit" class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded font-bold transition">
+                View Source
+            </button>
+        </form>
+
+        {% if error %}
+        <div class="bg-red-500/20 border border-red-500 p-4 rounded mb-6 text-red-200">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        {% if source_code %}
+        <div class="bg-[#1a1a1a] rounded-lg overflow-hidden shadow-xl border border-gray-700">
+            <div class="bg-gray-800 px-4 py-2 text-sm text-gray-400 border-b border-gray-700 flex justify-between">
+                <span>Source: {{ url }}</span>
+                <span>{{ source_code|length }} characters</span>
+            </div>
+            <pre class="m-0 p-4 overflow-x-auto text-sm"><code class="language-html">{{ source_code }}</code></pre>
+        </div>
+        {% endif %}
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+</body>
+</html>
